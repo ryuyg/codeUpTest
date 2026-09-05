@@ -12,27 +12,46 @@
 n개의 좌표를 입력받아 십(+)자 뒤집기한 결과를 출력하는 프로그램을 작성해보자.
 """
 
-n = int(input())
-board = []
+# n = int(input())
+# board = []
 
-for i in range(19):
-    board.append(list(map(int, input().split())))
+# for i in range(19):
+#     board.append(list(map(int, input().split())))
+
+# for i in range(n):
+#     x, y = map(int, input().split())
+#     # 가로
+#     for j in range(19):
+#         if board[x - 1][j] == 0:
+#             board[x - 1][j] = 1
+#         else:
+#             board[x - 1][j] = 0
+
+#     # 세로줄
+#     for j in range(19):
+#         if board[j][y - 1] == 0:
+#             board[j][y - 1] = 1
+#         else:
+#             board[j][y - 1] = 0
+            
+# for i in range(19):
+#     print(*board[i])
+board = [[0] * 19 for _ in range(19)]
+
+n = int(input())
 
 for i in range(n):
     x, y = map(int, input().split())
-    # 가로
-    for j in range(19):
-        if board[x - 1][j] == 0:
-            board[x - 1][j] = 1
-        else:
-            board[x - 1][j] = 0
 
-    # 세로줄
+    # 가로 뒤집기
     for j in range(19):
-        if board[j][y - 1] == 0:
-            board[j][y - 1] = 1
-        else:
-            board[j][y - 1] = 0
-            
-for i in range(19):
-    print(*board[i])
+        board[x - 1][j] = 1 - board[x - 1][j]
+
+    # 세로 뒤집기
+    for j in range(19):
+        board[j][y - 1] = 1 - board[j][y - 1]
+
+for row in board:
+    print(*row)
+#-----------이해 안되서 gpt 도움을 받았슴.
+#-----------개인정으로 복습해볼 문제. 복습 완료시 해당 주석 삭제

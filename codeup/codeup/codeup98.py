@@ -99,19 +99,13 @@ while(isFindFood == False):
     #목적지 도착이 아닐때 => 음식과 개미 위치가 일치하지 않을 때,
     if ((foodPointX - antPointX) != 0) or ((foodPointY - antPointY) != 0):
         #음식 위치 음수 양수는 현재 고려x 일단 양수로만 판단
-        #혹여나 움직이다 뻑날수 있으니 1칸씩 움직이게 하는 용으로 선언.
-        if isMove == False: 
         # ->방향 먼저 검출 -> 다음번 배열에 벽이있다면 else 로           
-            if board[antPointX][antPointY + 1] != 1:               
-                isMove= True
+            if board[antPointX][antPointY + 1] != 1:           
                 board[antPointX][antPointY] = 9
                 antPointY += 1
-                isMove= False
-            elif board[antPointX+1][antPointY] != 1:              
-                isMove= True
+            elif board[antPointX+1][antPointY] != 1:      
                 board[antPointX][antPointY] = 9
                 antPointX += 1
-                isMove= False       
     #종료 조건.
     #목적지 도착 => 음식과 개미 위치 같음
     if antPointX == foodPointX & antPointY == foodPointY:

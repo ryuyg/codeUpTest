@@ -21,13 +21,102 @@
 미로 상자의 테두리는 모두 벽으로 되어 있으며,
 개미집은 반드시 (2, 2)에 존재하기 때문에 개미는 (2, 2)에서 출발한다.
 """
+#---------------------------------------------------------------------------------------
+#초기 맵 생성
+board = []
+boardSizeX, boardSizeY = map(int, input().split())
+for i in range(boardSizeX):
+    board.append([])
+    for j in range(boardSizeY):
+        board[i].append(0)
+
+# if d == 0:
+#             for i in range(r):
+#                 borad[x-1][y+i-1] = 1 
+#----------------------------------------------------------------------------------------
+#맵 셋팅 - code 업 입력예시 기준
+# 1 1 1 1 1 1 1 1 1 1
+# 1 0 0 1 0 0 0 0 0 1
+# 1 0 0 1 1 1 0 0 0 1
+# 1 0 0 0 0 0 0 1 0 1
+# 1 0 0 0 0 0 0 1 0 1
+# 1 0 0 0 0 1 0 1 0 1
+# 1 0 0 0 0 1 2 1 0 1
+# 1 0 0 0 0 1 0 0 0 1
+# 1 0 0 0 0 0 0 0 0 1
+# 1 1 1 1 1 1 1 1 1 1
+# def setWall(wall):
+#     newWall = wall.copy()
+#     for i in range(len(wall)):
+#         newWall[i] = 1
+#     
+#     return wall
+
+#외벽
+for i in range(boardSizeX):   
+    for j in range(boardSizeY):
+        #x축 j , #y축 i 
+        #처음 벽. 끝 벽
+        if i == 0 or j == 0 or i == (boardSizeX-1) or j == (boardSizeY-1):
+            board[i][j] = 1
+#내벽
+board[1][3] =1
+board[2][3] =1
+board[2][4] =1
+board[2][5] =1
+board[5][5] =1
+board[6][5] =1
+board[7][5] =1
+board[3][7] =1
+board[4][7] =1
+board[5][7] =1
+board[6][7] =1
+
+#개미와 먹이 위치 세팅.개미 2x2 
+#나중엔 input으로도 가능하게 해보기
+#개미 위치
+antPointX = 1
+antPointY = 1
+board[antPointX][antPointY]
+#먹이위치
+foodPointX = 6
+foodPointY = 6
+board[foodPointX][foodPointY] = 2
+
+# wallList = [, , ]
+# setWall(wallList)
+#-----------------------------------------------------------------------------------------
+#먹이찾기 알고리즘
+#시작지점 (개미) -> 도착지점 (먹이)
+#먹이 좌표 - 개미 좌표 해서 남는 x y 만큼 이동.
+#다만, 벽에 부딪히면 다시 이동 좌표 설정
+moveCountX = foodPointX - antPointX
+moveCountY = foodPointY - antPointY 
+isFindFood = False
+
+#음식을 찾기 전까지는 반복돌리며 경로 찾기.
+while(isFindFood == 0):
+    if moveCountX != 0 & moveCountX != 0:
+        if board[antPointX + 1][antPointY] != 1: 
+            antPointX += 1
+            moveCountX -= 1
+            board[antPointX][antPointY] = 9
+        else:
+            antPointY += 1
+            moveCountX -= 1
+            board[antPointX][antPointY] = 9
+
+    #종료 조건.
+    if antPointX == foodPointX & antPointY == foodPointY:
+        board[antPointX][antPointY] = 9
+        isFindFood =True
 
 
-def solve():
-    # TODO: ?? ??? ?????.
-    # ??? ?? ???? ??? ?????.
-    pass
 
 
-if __name__ == "__main__":
-    solve()
+
+#최종 출력---------------------------------------------------------------------------------
+for i in range(boardSizeX):
+    for j in range(boardSizeY):
+        print(board[i][j], end=' ')
+    print()

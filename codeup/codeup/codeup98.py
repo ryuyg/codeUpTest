@@ -24,7 +24,8 @@
 #---------------------------------------------------------------------------------------
 #초기 맵 생성
 board = []
-boardSizeX, boardSizeY = map(int, input().split())
+#boardSizeX, boardSizeY = map(int, input().split())
+boardSizeX,boardSizeY = 10,10
 for i in range(boardSizeX):
     board.append([])
     for j in range(boardSizeY):
@@ -90,33 +91,67 @@ board[foodPointX][foodPointY] = 2
 #시작지점 (개미) -> 도착지점 (먹이)
 #먹이 좌표 - 개미 좌표 해서 남는 x y 만큼 이동.
 #다만, 벽에 부딪히면 다시 이동 좌표 설정
-moveCountX = foodPointX - antPointX
-moveCountY = foodPointY - antPointY 
 isFindFood = False
+isMove = False
 
 #음식을 찾기 전까지는 반복돌리며 경로 찾기.
-while(isFindFood == 0):
-    if moveCountX != 0 & moveCountX != 0:
-        if board[antPointX + 1][antPointY] != 1: 
-            antPointX += 1
-            moveCountX -= 1
-            board[antPointX][antPointY] = 9
-        else:
-            antPointY += 1
-            moveCountX -= 1
-            board[antPointX][antPointY] = 9
-
+while(isFindFood == False):
+    #목적지 도착이 아닐때 => 음식과 개미 위치가 일치하지 않을 때,
+    if ((foodPointX - antPointX) != 0) or ((foodPointY - antPointY) != 0):
+        #음식 위치 음수 양수는 현재 고려x 일단 양수로만 판단
+        #혹여나 움직이다 뻑날수 있으니 1칸씩 움직이게 하는 용으로 선언.
+        if isMove == False: 
+        # ->방향 먼저 검출 -> 다음번 배열에 벽이있다면 else 로           
+            if board[antPointX][antPointY + 1] != 1:               
+                isMove= True
+                board[antPointX][antPointY] = 9
+                antPointY += 1
+                isMove= False
+            elif board[antPointX+1][antPointY] != 1:              
+                isMove= True
+                board[antPointX][antPointY] = 9
+                antPointX += 1
+                isMove= False       
     #종료 조건.
+    #목적지 도착 => 음식과 개미 위치 같음
     if antPointX == foodPointX & antPointY == foodPointY:
         board[antPointX][antPointY] = 9
         isFindFood =True
-
-
-
-
 
 #최종 출력---------------------------------------------------------------------------------
 for i in range(boardSizeX):
     for j in range(boardSizeY):
         print(board[i][j], end=' ')
     print()
+
+## 코드업에서 올려준 입력예시와 출력예시에 일단 맞춰서 작성했는데
+
+# 10*10 크기의 미로 상자의 구조와 먹이의 위치가 입력된다.
+# 1 1 1 1 1 1 1 1 1 1
+# 1 0 0 1 0 0 0 0 0 1
+# 1 0 0 1 1 1 0 0 0 1
+# 1 0 0 0 0 0 0 1 0 1
+# 1 0 0 0 0 0 0 1 0 1
+# 1 0 0 0 0 1 0 1 0 1
+# 1 0 0 0 0 1 2 1 0 1
+# 1 0 0 0 0 1 0 0 0 1
+# 1 0 0 0 0 0 0 0 0 1
+# 1 1 1 1 1 1 1 1 1 1
+
+# 출력 예시
+# 1 1 1 1 1 1 1 1 1 1
+# 1 9 9 1 0 0 0 0 0 1
+# 1 0 9 1 1 1 0 0 0 1
+# 1 0 9 9 9 9 9 1 0 1
+# 1 0 0 0 0 0 9 1 0 1
+# 1 0 0 0 0 1 9 1 0 1
+# 1 0 0 0 0 1 9 1 0 1
+# 1 0 0 0 0 1 0 0 0 1
+# 1 0 0 0 0 0 0 0 0 1
+# 1 1 1 1 1 1 1 1 1 1
+#
+#코드 채점에서는 아예 벽없이 답이 이상하게 나오게 보여줘서 오답처리를 하네요 
+#그냥 제가 맞는걸로 생각하고 있습니다.
+#
+#해당 코드는 먹이의 방향이 모두 양수 방향일 때 기준으로 작성된 것이라 보완을 할 예정입니다.
+#개미의 위치, 먹이를 따로 입력받아 찾아가는 프로그램으로 작성해볼 예정입니다.

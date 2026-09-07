@@ -78,11 +78,9 @@ board[6][7] =1
 #개미 위치
 antPointX = 1
 antPointY = 1
-board[antPointX][antPointY]
 #먹이위치
-foodPointX = 6
+foodPointX = 8
 foodPointY = 6
-board[foodPointX][foodPointY] = 2
 
 # wallList = [, , ]
 # setWall(wallList)
@@ -92,7 +90,6 @@ board[foodPointX][foodPointY] = 2
 #먹이 좌표 - 개미 좌표 해서 남는 x y 만큼 이동.
 #다만, 벽에 부딪히면 다시 이동 좌표 설정
 isFindFood = False
-isMove = False
 
 #음식을 찾기 전까지는 반복돌리며 경로 찾기.
 while(isFindFood == False):

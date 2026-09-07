@@ -1,7 +1,0 @@
-# Programmers problem 48
-
-
-default_input = """
-문제 입력
-"""
-
